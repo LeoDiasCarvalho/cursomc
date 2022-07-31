@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leodias.cursomc.dominios.Categorias;
+import com.leodias.cursomc.dominios.Categoria;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CatergoriaResource {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Categorias> Listar() {
+	public List<Categoria> Listar() {
 		
-		Categorias cat1 = new Categorias(1, "Informática");
-		Categorias cat2 = new Categorias(2, "Escritório");
+		Categoria cat1 = new Categoria(1, "Informática");
+		Categoria cat2 = new Categoria(2, "Escritório");
 		
-		List<Categorias> lista = new ArrayList<>();
+		List<Categoria> lista = new ArrayList<>();
 		lista.add(cat1);
 		lista.add(cat2);
 		
