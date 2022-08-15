@@ -6,11 +6,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -63,6 +65,19 @@ public class CatergoriaResource {
 		
 		List<Categoria> lista = service.findAll();
 		List<CategoriaDTO> listaDTO = lista.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listaDTO);
+	}
+	
+	//Recuperando todas as Categorias por páginas
+	@RequestMapping(value="/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<CategoriaDTO>> findPage(
+			@RequestParam(value="page", defaultValue="0") Integer page, 
+			@RequestParam(value="linhasPorPagina", defaultValue="24") Integer linhasPorPagina, 
+			@RequestParam(value="ordem", defaultValue="nome") String ordem, 
+			@RequestParam(value="direcao", defaultValue="ASC") String direcao) {
+			
+		Page<Categoria> lista = service.findPage(page, linhasPorPagina, ordem, direcao);
+		Page<CategoriaDTO> listaDTO = lista.map(obj -> new CategoriaDTO(obj));
 		return ResponseEntity.ok().body(listaDTO);
 	}
 }
