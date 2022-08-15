@@ -1,5 +1,6 @@
 package com.leodias.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,10 @@ public class CategoriaService {
 			.DataIntegrityException("Não é possível excluir uma Categoria que contenha produtos");
 			
 		}
+	}
+	
+	public List<Categoria> findAll() {
+		List<Categoria> lista = repo.findAll();
+		return lista;
 	}
 }
